@@ -27,12 +27,12 @@
     int numberStudentCheck =arc4random_uniform(count);
     for(int i=0;i<count;i++){
         AVStudent*student = [[AVStudent alloc]init];
-                            /* [student addObserver:self forKeyPath:@"firstName" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
+                             [student addObserver:self forKeyPath:@"firstName" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
                              [student addObserver:self forKeyPath:@"lastName" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
                              [student addObserver:self forKeyPath:@"dataBirth" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
                              [student addObserver:self forKeyPath:@"gender" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
                              [student addObserver:self forKeyPath:@"grade" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
-                             */
+                             
         if(i!=0)
             student.frend =[array lastObject];
         if(i==count-1){
@@ -210,20 +210,20 @@
 
     AVCell*cell = [self makeCellForView:sender];
     AVStudent*student = cell.student;
-/*
+
     [student addObserver:self forKeyPath:@"firstName" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
     [student addObserver:self forKeyPath:@"lastName" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
     [student addObserver:self forKeyPath:@"dataBirth" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
     [student addObserver:self forKeyPath:@"gender" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
     [student addObserver:self forKeyPath:@"grade" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
-*/
+
     self.curentStudent = student;
     UITableView*table = self.tvc.tableView;
     for(NSInteger i=0;i<5;i++){
         UITableViewCell*cellInfo = [table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
         UIView*contentView = cellInfo.contentView;
         UITextField*textField = [contentView.subviews objectAtIndex:0];
-        //[textField addObserver:self forKeyPath:@"text" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
+        [textField addObserver:self forKeyPath:@"text" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
         textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         switch (i) {
             case 0:
