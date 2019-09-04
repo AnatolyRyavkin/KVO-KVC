@@ -82,8 +82,8 @@
 }
 */
 -(void)cleanIVar{
-    _firstName=@"";
-    _lastName=@" ";
+    _firstName=@"AAAAAAAAA";
+    _lastName=@"BBBBBBBBBBB ";
     _dateBirth=NULL;
     _gender= GenderNil;
     _grade=0;

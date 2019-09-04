@@ -71,13 +71,26 @@
 #pragma mark - Observer
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
-    NSLog(@"");
-    NSLog(@"-----------------Observer-------------------");
-    NSLog(@"student Observing : %@ %@",((AVStudent*)object).firstName,((AVStudent*)object).lastName);
-    NSLog(@"keyPath=%@ \n object = %@ \n change = %@ \n context = %@",keyPath,object,change,context);
-    NSLog(@"change.NSKeyValueChangeOldKey=%@",[change objectForKey:NSKeyValueChangeOldKey]);
-    NSLog(@"change.NSKeyValueChangeNewKey=%@",[change objectForKey:NSKeyValueChangeNewKey]);
-    NSLog(@"");
+
+    if([object isKindOfClass:[AVStudent class]]){
+        NSLog(@"");
+        NSLog(@"-----------------Observer student-------------------");
+        NSLog(@"student Observing : %@ %@",((AVStudent*)object).firstName,((AVStudent*)object).lastName);
+        NSLog(@"keyPath=%@ \n object = %@ \n change = %@ \n context = %@",keyPath,object,change,context);
+        NSLog(@"change.NSKeyValueChangeOldKey=%@",[change objectForKey:NSKeyValueChangeOldKey]);
+        NSLog(@"change.NSKeyValueChangeNewKey=%@",[change objectForKey:NSKeyValueChangeNewKey]);
+        NSLog(@"");
+    }
+    else if([object isKindOfClass:[UITextField class]]){
+        NSLog(@"");
+        NSLog(@"-----------------Observer textField-------------------");
+        NSLog(@"student Observing :  %@",((UITextField*)object).text);
+        NSLog(@"keyPath=%@ \n object = %@ \n change = %@ \n context = %@",keyPath,object,change,context);
+        NSLog(@"change.NSKeyValueChangeOldKey=%@",[change objectForKey:NSKeyValueChangeOldKey]);
+        NSLog(@"change.NSKeyValueChangeNewKey=%@",[change objectForKey:NSKeyValueChangeNewKey]);
+        NSLog(@"");
+    }
+
 }
 
 #pragma mark - DataSourse
@@ -223,13 +236,15 @@
         UITableViewCell*cellInfo = [table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
         UIView*contentView = cellInfo.contentView;
         UITextField*textField = [contentView.subviews objectAtIndex:0];
-        [textField addObserver:self forKeyPath:@"text" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)student];
+        [textField addObserver:self forKeyPath:@"text" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:(void*)textField];
         textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         switch (i) {
             case 0:
                 self.textFieldFirstName = textField;
                 self.textFieldFirstName.delegate = self;
-                textField.text = student.firstName;
+                NSLog(@"%@",student.firstName);
+                self.textFieldFirstName.text = student.firstName;
+                textField.text = [student valueForKey:@"firstName"];
                 break;
             case 1:
                 textField.text = student.lastName;
